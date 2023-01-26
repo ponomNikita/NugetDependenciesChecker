@@ -5,6 +5,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{8BEB8E6B-A165-4B4D-B3ED-40CA7F6FC4E6}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
+		..\.github\workflows\build-dotnet.yml = ..\.github\workflows\build-dotnet.yml
+		..\.github\workflows\release-dotnet.yml = ..\.github\workflows\release-dotnet.yml
 	EndProjectSection
 EndProject
 Global
