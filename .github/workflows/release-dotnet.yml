@@ -26,3 +26,4 @@ jobs:
       with:
         files: 'publish/*'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+        release-tag: ${{  github.ref_name }}
