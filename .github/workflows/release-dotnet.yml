@@ -1,0 +1,32 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  release:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Publish for win-x64
+      run: dotnet publish src/NugetDependenciesChecker.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained true -o publish
+    - name: Publish for linux-x64
+      run: dotnet publish src/NugetDependenciesChecker.csproj -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true -o publish
+    - name: Prepare assets
+      run: rm publish/NugetDependenciesChecker.pdb; mv publish/NugetDependenciesChecker publish/NugetDependenciesChecker-linux-x64;
+    - name: Upload files to a GitHub release
+      uses: AButler/upload-release-assets@v2.0
+      with:
+        files: 'publish/*'
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        release-tag: ${{  github.ref_name }}
