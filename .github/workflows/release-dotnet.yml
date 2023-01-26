@@ -21,8 +21,14 @@ jobs:
       run: dotnet publish src/NugetDependenciesChecker.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained true -o publish
     - name: Publish for linux-x64
       run: dotnet publish src/NugetDependenciesChecker.csproj -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true -o publish
-    - name: Release
-      uses: fnkr/github-action-ghr@v1
-      env:
-        GHR_PATH: publish/
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload files to a GitHub release
+      # You may pin to the exact commit or the version.
+      # uses: svenstaro/upload-release-action@2728235f7dc9ff598bd86ce3c274b74f802d2208
+      uses: svenstaro/upload-release-action@2.4.0
+      with:
+        # GitHub token.
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        # Local file to upload.
+        file: publish/NugetDependenciesChecker.exe
+        # Name of the asset. When not provided will use the file name. Unused if file_glob is set to "true".
+        asset_name: NugetDependenciesChecker.exe
