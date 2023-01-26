@@ -26,8 +26,6 @@ jobs:
       # uses: svenstaro/upload-release-action@2728235f7dc9ff598bd86ce3c274b74f802d2208
       uses: svenstaro/upload-release-action@2.4.0
       with:
-        # GitHub token.
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
         # Local file to upload.
         file: publish/NugetDependenciesChecker.exe
         # Name of the asset. When not provided will use the file name. Unused if file_glob is set to "true".
